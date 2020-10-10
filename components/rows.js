@@ -32,20 +32,20 @@ export class Rows extends Component {
   };
 
   render() {
-    const { data, style, widthArr, heightArr, flexArr, textStyle, ...props } = this.props;
+    const { data, style, widthArr, heightArr, flexArr, textStyle, renderRowsItem, ...props } = this.props;
     const flex = flexArr ? sum(flexArr) : 0;
     const width = widthArr ? sum(widthArr) : 0;
 
     return data ? (
       <View style={[flex && { flex }, width && { width }]}>
         <FlatList
-          style={{ marginBottom: 77 }}
+          //style={{ marginBottom: 77 }}
           keyExtractor={(item, index) => index.toString()}
           data={data}
-          renderItem={({ item, index }) => {
-            const height = heightArr && heightArr[i];
-            return <Row key={index} data={item} widthArr={widthArr} height={height} flexArr={flexArr} style={style} textStyle={textStyle} {...props} />
-          }}
+          onEndReachedThreshold={0.5}
+          refreshing={true}
+          initialNumToRender={20}
+          renderItem={renderRowsItem}
         />
       </View>
     ) : null;
